@@ -38,16 +38,6 @@ export default function ContactPage() {
                 LinkedIn
               </a>
             )}
-            {siteConfig.socials.portfolio && (
-              <a
-                href={siteConfig.socials.portfolio}
-                target="_blank"
-                rel="noreferrer"
-                className="link-underline"
-              >
-                Portfolio
-              </a>
-            )}
           </div>
         </div>
       </div>
