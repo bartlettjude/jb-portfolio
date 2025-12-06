@@ -39,6 +39,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
   const { slug } = params;
   // Project content is sourced from data/projects.ts
   const project = getProjectBySlug(slug);
+  const demoLink = project?.demoUrl || project?.githubUrl;
 
   if (!project) {
     return (
@@ -59,37 +60,45 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       description={project.shortDescription}
       className="space-y-6"
     >
-      <div className="flex flex-wrap items-center gap-3 text-sm text-gray-700">
-        <span className={`rounded-full px-3 py-1 ${statusStyles[project.status]}`}>
-          {project.status}
-        </span>
-        <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-700">{project.type}</span>
-        {project.role && (
-          <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-700">Role: {project.role}</span>
-        )}
-      </div>
+      <div className="max-w-3xl space-y-6 rounded-2xl border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[var(--card)] p-6 shadow-sm">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-gray-700">
+          <span className={`rounded-full px-3 py-1 ${statusStyles[project.status]}`}>
+            {project.status}
+          </span>
+          <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-700">{project.type}</span>
+          {project.role && (
+            <span className="rounded-full bg-gray-100 px-3 py-1 text-gray-700">
+              Role: {project.role}
+            </span>
+          )}
+        </div>
 
-      <div className="space-y-4 text-base leading-relaxed text-gray-700">
-        <p>{project.fullDescription}</p>
-      </div>
+        <div className="space-y-3 text-sm leading-relaxed text-gray-700">
+          <p className="text-base font-medium text-gray-900">Overview</p>
+          <p className="text-gray-700">{project.fullDescription}</p>
+        </div>
 
-      <div className="flex flex-wrap gap-2">
-        {project.techStack.map((tech) => (
-          <Tag key={tech} label={tech} variant="muted" />
-        ))}
-      </div>
+        <div className="space-y-2">
+          <p className="text-sm font-medium text-gray-900">Tech stack</p>
+          <div className="flex flex-wrap gap-2">
+            {project.techStack.map((tech) => (
+              <Tag key={tech} label={tech} variant="muted" />
+            ))}
+          </div>
+        </div>
 
-      <div className="flex flex-wrap gap-3">
-        {project.githubUrl && (
-          <Button href={project.githubUrl} variant="ghost" external>
-            View on GitHub
-          </Button>
-        )}
-        {project.demoUrl && (
-          <Button href={project.demoUrl} variant="primary" external>
-            Live demo
-          </Button>
-        )}
+        <div className="flex flex-wrap gap-3">
+          {demoLink && (
+            <Button href={demoLink} variant="primary" external>
+              View live
+            </Button>
+          )}
+          {project.githubUrl && (
+            <Button href={project.githubUrl} variant="ghost" external>
+              View on GitHub
+            </Button>
+          )}
+        </div>
       </div>
 
       <Link
