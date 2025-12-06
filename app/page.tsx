@@ -71,9 +71,6 @@ export default function Home() {
                 <li>• Systems that are easy to maintain</li>
                 <li>• AI-assisted workflows to move fast</li>
               </ul>
-              <p className="text-xs text-gray-500">
-                Content is data-driven. To update projects, edit <code>data/projects.ts</code>.
-              </p>
             </div>
           </div>
         </Container>
