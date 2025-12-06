@@ -1,0 +1,29 @@
+name: Sync Projects
+
+on:
+  schedule:
+    - cron: "0 2 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run sync:projects
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_LOGIN: bartlettjude
+      - run: npm run lint
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/sync-projects
+          commit-message: "chore: sync projects from GitHub"
+          title: "Sync projects from GitHub"
+          body: "Auto-updated projects from pinned repositories."
+

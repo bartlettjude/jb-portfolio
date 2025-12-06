@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Overview
 
-## Getting Started
+Personal tech portfolio built with Next.js App Router, TypeScript, and Tailwind CSS (light theme with teal accent). Content is data-driven—update one file to add projects.
 
-First, run the development server:
+## Quick start
 
+Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run the dev server:
+```bash
+npm run dev
+# visit http://localhost:3000
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Build for production:
+```bash
+npm run build
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Start the production build locally:
+```bash
+npm run start
+```
 
-## Learn More
+## Editing your info
 
-To learn more about Next.js, take a look at the following resources:
+- Update name, role, tagline, location, email, and social links in `data/siteConfig.ts`.
+- Global styling (light background, accent color, font) lives in `app/globals.css`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Adding or editing projects (single file)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1) Open `data/projects.ts`.
+2) Copy the commented example at the top of the file.
+3) Paste it into the `projects` array and fill in the fields:
+   - Required: `slug`, `name`, `shortDescription`, `fullDescription`, `techStack`, `status`, `type`.
+   - Optional: `role`, `githubUrl`, `demoUrl`, `createdAt`, `updatedAt`, `highlighted`.
+4) Save. The Home, Projects list, and Project detail pages all update automatically.
 
-## Deploy on Vercel
+Helpers available:
+- `getAllProjects()` sorts projects (newest first).
+- `getProjectBySlug(slug)` retrieves one project.
+- `getHighlightedProjects()` returns featured items for the Home page.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Auto-sync from GitHub (optional, already wired)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Pinned repos for `bartlettjude` can auto-populate `data/projects.ts`.
+- Local run: set `GITHUB_TOKEN` then `npm run sync:projects`.
+- CI run: GitHub Actions workflow `.github/workflows/sync-projects.yml` runs nightly and opens a PR with updates.
+- Manual projects are appended in the sync script so you can keep custom entries.
+
+## Page structure (app router)
+
+- `/` – Hero plus highlighted projects.
+- `/projects` – All projects grouped by status.
+- `/projects/[slug]` – Individual project detail pages.
+- `/about` – Bio and skills.
+- `/contact` – Email and social links.
+
+## Components
+
+- `Container`, `PageShell`, `Section` keep spacing consistent.
+- `Navbar`, `Footer` pull data from `siteConfig`.
+- `ProjectCard`, `ProjectGrid`, `Tag`, `Button` are reusable UI pieces.
+
+## Notes
+
+- The accent color and base theme are defined in `app/globals.css`.
+- Navigation is responsive; the navbar collapses on small screens.
+- All text strings that should change over time live in `data/siteConfig.ts` or `data/projects.ts`.
