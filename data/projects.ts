@@ -86,7 +86,8 @@ export function getAllProjects(): Project[] {
 }
 
 export function getProjectBySlug(slug: string): Project | null {
-  return projects.find((project) => project.slug === slug) ?? null;
+  const target = slug.toLowerCase();
+  return projects.find((project) => project.slug.toLowerCase() === target) ?? null;
 }
 
 export function getHighlightedProjects(): Project[] {
