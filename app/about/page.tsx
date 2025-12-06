@@ -13,13 +13,15 @@ export default function AboutPage() {
       <div className="space-y-6 text-gray-700">
         {/* Edit your bio below to personalize the page */}
         <p>
-          I build web experiences that balance clarity, performance, and maintainability. I enjoy
-          pairing strong UI foundations with automation to move quickly without sacrificing quality.
+          I’m a motivated and hardworking professional with strong leadership, communication, and
+          customer service experience. I’ve managed teams, solved problems under pressure, and kept
+          operations running smoothly in fast-paced environments, all while bringing a positive,
+          people-focused attitude to every role.
         </p>
         <p>
-          Recently I have been leaning on Cursor to iterate faster, keep structure tight, and ship
-          projects that are easy to extend. I appreciate clean design systems, sensible data models,
-          and thoughtful documentation.
+          Outside of work, I’m a dedicated musician with years of creative experience, and I’m now
+          growing my skills in technology and AI-driven fields. I love building things, learning
+          quickly, and finding solutions that make experiences better for both teams and customers.
         </p>
         <div className="space-y-3">
           <p className="font-semibold text-gray-900">Snapshot</p>
