@@ -85,7 +85,8 @@ export function getAllProjects(): Project[] {
   return [...projects].sort((a, b) => sortValue(b.createdAt) - sortValue(a.createdAt));
 }
 
-export function getProjectBySlug(slug: string): Project | null {
+export function getProjectBySlug(slug?: string): Project | null {
+  if (!slug) return null;
   const target = slug.toLowerCase();
   return projects.find((project) => project.slug.toLowerCase() === target) ?? null;
 }
