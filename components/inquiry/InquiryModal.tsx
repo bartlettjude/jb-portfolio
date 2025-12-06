@@ -298,8 +298,6 @@ export function InquiryModal({ open, onClose }: InquiryModalProps) {
               onSubmit={handleSubmit}
               isFirstStep={step === 0}
               isLastStep={isLastStep}
-              disableNext={Object.keys(validateStep(step, formData)).length > 0}
-              disableSubmit={Object.keys(validateStep(step, formData)).length > 0}
               submitting={submitting}
             />
           </div>

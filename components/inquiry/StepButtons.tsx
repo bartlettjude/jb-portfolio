@@ -9,8 +9,6 @@ type StepButtonsProps = {
   onSubmit?: () => void;
   isFirstStep: boolean;
   isLastStep: boolean;
-  disableNext?: boolean;
-  disableSubmit?: boolean;
   submitting?: boolean;
   children?: ReactNode;
 };
@@ -21,8 +19,6 @@ export function StepButtons({
   onSubmit,
   isFirstStep,
   isLastStep,
-  disableNext,
-  disableSubmit,
   submitting,
   children,
 }: StepButtonsProps) {
@@ -48,10 +44,10 @@ export function StepButtons({
           <button
             type="button"
             onClick={onSubmit}
-            disabled={disableSubmit || submitting}
+            disabled={submitting}
             className={clsx(
               "inline-flex items-center justify-center rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition-all duration-200 ease-out",
-              disableSubmit || submitting ? "opacity-60 cursor-not-allowed" : "hover:brightness-95",
+              submitting ? "opacity-60 cursor-not-allowed" : "hover:brightness-95",
             )}
           >
             {submitting ? "Sending..." : "Submit"}
@@ -60,10 +56,10 @@ export function StepButtons({
           <button
             type="button"
             onClick={onNext}
-            disabled={disableNext || submitting}
+            disabled={submitting}
             className={clsx(
               "inline-flex items-center justify-center rounded-md bg-[var(--accent)] px-4 py-2 text-sm font-semibold text-white transition-all duration-200 ease-out",
-              disableNext || submitting ? "opacity-60 cursor-not-allowed" : "hover:brightness-95",
+              submitting ? "opacity-60 cursor-not-allowed" : "hover:brightness-95",
             )}
           >
             Next
