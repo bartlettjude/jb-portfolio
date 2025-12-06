@@ -1,8 +1,14 @@
+"use client";
+
+import { useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
 import { PageShell } from "@/components/PageShell";
 import { Button } from "@/components/Button";
+import { InquiryModal } from "@/components/inquiry/InquiryModal";
 
 export default function ContactPage() {
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+
   return (
     <PageShell
       title="Contact"
@@ -40,6 +46,24 @@ export default function ContactPage() {
             )}
           </div>
         </div>
+
+        <div className="mt-8 rounded-2xl border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[color-mix(in_srgb,#f8fafc_90%,white)] p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                Inquiry
+              </p>
+              <p className="text-base text-gray-700">
+                Want to discuss a project? Share a few details to get started.
+              </p>
+            </div>
+            <Button href="#" onClick={() => setInquiryOpen(true)}>
+              Begin Inquiry
+            </Button>
+          </div>
+        </div>
+
+        <InquiryModal open={inquiryOpen} onClose={() => setInquiryOpen(false)} />
       </div>
     </PageShell>
   );

@@ -1,9 +1,11 @@
- "use client";
+"use client";
 
+import { useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
 import { PageShell } from "@/components/PageShell";
 import { Tag } from "@/components/Tag";
 import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
+import { InquiryModal } from "@/components/inquiry/InquiryModal";
 import clsx from "clsx";
 
 const skills = ["React", "TypeScript", "Next.js", "Tailwind CSS", "Cursor AI", "Node.js"];
@@ -14,6 +16,7 @@ export default function AboutPage() {
   const { ref: snapshotRef, visible: snapshotVisible } = useFadeInOnScroll();
   const { ref: skillsRef, visible: skillsVisible } = useFadeInOnScroll();
   const { ref: qualsRef, visible: qualsVisible } = useFadeInOnScroll();
+  const [inquiryOpen, setInquiryOpen] = useState(false);
 
   return (
     <PageShell
@@ -80,6 +83,28 @@ export default function AboutPage() {
             </ul>
           )}
         </div>
+
+        <div className="rounded-2xl border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[color-mix(in_srgb,#f8fafc_90%,white)] p-5 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-1">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gray-500">
+                Inquiry
+              </p>
+              <p className="text-base text-gray-700">
+                Interested in collaborating? Share a few details to start the conversation.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setInquiryOpen(true)}
+              className="inline-flex items-center justify-center rounded-md bg-[var(--accent)] px-4 py-2.5 text-sm font-semibold text-white transition hover:brightness-95"
+            >
+              Begin Inquiry
+            </button>
+          </div>
+        </div>
+
+        <InquiryModal open={inquiryOpen} onClose={() => setInquiryOpen(false)} />
       </div>
     </PageShell>
   );
