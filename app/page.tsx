@@ -118,7 +118,12 @@ export default function Home() {
               Interested in working together? Share a few details below.
             </p>
           </div>
-          <Button onClick={() => setInquiryOpen(true)} href="#" variant="primary" className="text-white">
+          <Button
+            onClick={() => setInquiryOpen(true)}
+            href="#"
+            variant="primary"
+            className="!text-white"
+          >
             Begin Inquiry
           </Button>
         </div>
