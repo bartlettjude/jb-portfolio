@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import { siteConfig } from "@/data/siteConfig";
 import type { ContactFormData } from "@/components/inquiry/InquiryModal";
 
 function validate(payload: Partial<ContactFormData>) {
@@ -32,7 +31,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const toEmail = siteConfig.email || process.env.INQUIRY_TO || process.env.RESEND_TO;
+    const toEmail = "judebartlettpro@gmail.com";
     const fromEmail = process.env.INQUIRY_FROM || "inquiries@resend.dev";
 
     const subject = `New Inquiry From ${body.name}`;

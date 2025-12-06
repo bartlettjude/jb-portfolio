@@ -42,6 +42,12 @@ export function InquiryModal({ open, onClose }: InquiryModalProps) {
 
   const progress = useMemo(() => ((step + 1) / steps.length) * 100, [step, steps.length]);
 
+  const stepErrors = useMemo(() => validateStep(step, formData), [step, formData]);
+  const submitErrors = useMemo(() => {
+    // Ensure required steps are valid before submitting
+    return { ...validateStep(0, formData), ...validateStep(1, formData) };
+  }, [formData]);
+
   const reset = () => {
     setFormData(initialData);
     setErrors({});
@@ -298,6 +304,8 @@ export function InquiryModal({ open, onClose }: InquiryModalProps) {
               onSubmit={handleSubmit}
               isFirstStep={step === 0}
               isLastStep={isLastStep}
+              disableNext={Object.keys(stepErrors).length > 0}
+              disableSubmit={Object.keys(submitErrors).length > 0}
               submitting={submitting}
             />
           </div>

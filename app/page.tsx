@@ -107,9 +107,9 @@ export default function Home() {
       <Section
         title="Start an Inquiry"
         description="Interested in working together? Share a few details below."
-        className="rounded-[24px] border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[color-mix(in_srgb,#f8fafc_90%,white)]"
+        className="rounded-[24px] border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[color-mix(in_srgb,#f8fafc_90%,white)] pt-10"
       >
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-[var(--border)] pt-6">
           <div className="space-y-2">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">
               Inquiry
