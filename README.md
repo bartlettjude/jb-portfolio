@@ -44,12 +44,11 @@ Helpers available:
 - `getProjectBySlug(slug)` retrieves one project.
 - `getHighlightedProjects()` returns featured items for the Home page.
 
-## Auto-sync from GitHub (optional, already wired)
+## Auto-sync from GitHub (pinned repos)
 
-- Pinned repos for `bartlettjude` can auto-populate `data/projects.ts`.
+- Pulls pinned repos for `bartlettjude` (up to 6) and rewrites `data/projects.ts`.
 - Local run: set `GITHUB_TOKEN` then `npm run sync:projects`.
 - CI run: GitHub Actions workflow `.github/workflows/sync-projects.yml` runs nightly and opens a PR with updates.
-- Manual projects are appended in the sync script so you can keep custom entries.
 
 ## Page structure (app router)
 

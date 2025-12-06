@@ -33,8 +33,6 @@ type Project = {
   highlighted?: boolean;
 };
 
-const manualProjects: Project[] = [];
-
 function slugify(name: string) {
   return name
     .toLowerCase()
@@ -87,7 +85,7 @@ async function fetchPinned(): Promise<Repo[]> {
   return json.data.user.pinnedItems.nodes as Repo[];
 }
 
-function mapRepoToProject(repo: Repo): Project {
+function mapRepoToProject(repo: Repo, index: number): Project {
   const description =
     repo.description || "A GitHub project with an in-progress description.";
 
@@ -104,7 +102,8 @@ function mapRepoToProject(repo: Repo): Project {
     demoUrl: repo.homepageUrl || repo.url,
     createdAt: repo.createdAt,
     updatedAt: repo.pushedAt,
-    highlighted: true,
+    // Highlight the first few repos to feature them on Home
+    highlighted: index < 3,
   };
 }
 
@@ -219,11 +218,11 @@ export function getHighlightedProjects(): Project[] {
 }
 
 async function main() {
-  console.log(`Fetching pinned projects for ${GITHUB_LOGIN}...`);
-  const pinnedRepos = await fetchPinned();
-  const pinnedProjects = pinnedRepos.map(mapRepoToProject);
+  console.log(`Fetching pinned repositories for ${GITHUB_LOGIN}...`);
+  const repos = await fetchPinned();
+  const mapped = repos.map((repo, idx) => mapRepoToProject(repo, idx));
 
-  const combined = dedupeProjects([...pinnedProjects, ...manualProjects]);
+  const combined = dedupeProjects(mapped);
   const fileContent = buildFile(combined);
 
   fs.writeFileSync(PROJECTS_FILE, fileContent, "utf8");
