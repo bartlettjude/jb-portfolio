@@ -57,7 +57,7 @@ export default function ContactPage() {
                 Want to discuss a project? Share a few details to get started.
               </p>
             </div>
-            <Button href="#" onClick={() => setInquiryOpen(true)}>
+            <Button href="#" onClick={() => setInquiryOpen(true)} className="text-white">
               Begin Inquiry
             </Button>
           </div>
