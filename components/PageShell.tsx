@@ -10,9 +10,18 @@ type PageShellProps = {
   description?: string;
   children: ReactNode;
   className?: string;
+  titleClassName?: string;
+  animateTitle?: boolean;
 };
 
-export function PageShell({ title, description, children, className }: PageShellProps) {
+export function PageShell({
+  title,
+  description,
+  children,
+  className,
+  titleClassName,
+  animateTitle = false,
+}: PageShellProps) {
   const { ref, visible } = useFadeInOnScroll();
 
   return (
@@ -25,7 +34,13 @@ export function PageShell({ title, description, children, className }: PageShell
           {(title || description) && (
             <header className="mb-8 flex flex-col gap-3 sm:mb-10">
               {title && (
-                <h1 className="text-3xl font-semibold leading-tight text-gray-900 sm:text-4xl">
+                <h1
+                  className={clsx(
+                    "text-3xl font-semibold leading-tight text-gray-900 sm:text-4xl",
+                    animateTitle && "heading-underline",
+                    titleClassName,
+                  )}
+                >
                   {title}
                 </h1>
               )}
