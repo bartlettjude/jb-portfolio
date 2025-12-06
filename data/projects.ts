@@ -73,7 +73,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/bartlettjude/Track-Tempo",
     createdAt: "2024-07-10",
     updatedAt: "2024-08-01",
-    highlighted: false,
+    highlighted: true,
   },
 ];
 
@@ -90,6 +90,9 @@ export function getProjectBySlug(slug: string): Project | null {
 }
 
 export function getHighlightedProjects(): Project[] {
-  return projects.filter((project) => project.highlighted);
+  const highlighted = projects.filter((project) => project.highlighted);
+  if (highlighted.length > 0) return highlighted;
+  // If none are marked highlighted, show the most recent three as a fallback.
+  return getAllProjects().slice(0, 3);
 }
 
