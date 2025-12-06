@@ -1,3 +1,5 @@
+ "use client";
+
 import { siteConfig } from "@/data/siteConfig";
 import { PageShell } from "@/components/PageShell";
 import { Tag } from "@/components/Tag";
