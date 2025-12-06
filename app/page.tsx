@@ -7,11 +7,13 @@ import { Container } from "@/components/Container";
 import { Button } from "@/components/Button";
 import { Section } from "@/components/Section";
 import { ProjectGrid } from "@/components/ProjectGrid";
+import { InquiryModal } from "@/components/inquiry/InquiryModal";
 
 const highlightedProjects = getHighlightedProjects();
 
 export default function Home() {
   const [loaded, setLoaded] = useState(false);
+  const [inquiryOpen, setInquiryOpen] = useState(false);
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => setLoaded(true));
@@ -101,6 +103,28 @@ export default function Home() {
           <p className="text-gray-600">Add projects to data/projects.ts to see them here.</p>
         )}
       </Section>
+
+      <Section
+        title="Start an Inquiry"
+        description="Interested in working together? Share a few details below."
+        className="rounded-[24px] border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[color-mix(in_srgb,#f8fafc_90%,white)]"
+      >
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="space-y-2">
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">
+              Inquiry
+            </p>
+            <p className="text-base text-gray-600">
+              Interested in working together? Share a few details below.
+            </p>
+          </div>
+          <Button onClick={() => setInquiryOpen(true)} href="#" variant="primary">
+            Begin Inquiry
+          </Button>
+        </div>
+      </Section>
+
+      <InquiryModal open={inquiryOpen} onClose={() => setInquiryOpen(false)} />
     </div>
   );
 }
