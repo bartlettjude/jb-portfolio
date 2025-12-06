@@ -7,11 +7,18 @@ import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
 import clsx from "clsx";
 
 const skills = ["React", "TypeScript", "Next.js", "Tailwind CSS", "Cursor AI", "Node.js"];
+const qualifications = [
+  "Led teams in fast-paced environments with a people-first approach",
+  "Resolved operational issues under pressure while maintaining service quality",
+  "Delivered consistent customer experiences through clear communication",
+  "Blended creative background (musician) with modern web/AI tooling",
+];
 
 export default function AboutPage() {
   const { ref: introRef, visible: introVisible } = useFadeInOnScroll();
   const { ref: snapshotRef, visible: snapshotVisible } = useFadeInOnScroll();
   const { ref: skillsRef, visible: skillsVisible } = useFadeInOnScroll();
+  const { ref: qualsRef, visible: qualsVisible } = useFadeInOnScroll();
 
   return (
     <PageShell
@@ -61,6 +68,18 @@ export default function AboutPage() {
               <Tag key={skill} label={skill} variant="muted" />
             ))}
           </div>
+        </div>
+
+        <div
+          ref={qualsRef as React.RefObject<HTMLDivElement>}
+          className={clsx("space-y-3 fade-section", qualsVisible && "is-visible")}
+        >
+          <p className="font-semibold text-gray-900">Qualifications</p>
+          <ul className="space-y-2 text-sm text-gray-700">
+            {qualifications.map((item) => (
+              <li key={item}>• {item}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </PageShell>
