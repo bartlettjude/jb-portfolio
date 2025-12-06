@@ -67,9 +67,11 @@ export default function Home() {
             <div className="space-y-3 text-sm text-gray-700">
               <p className="font-semibold text-gray-900">What to expect</p>
               <ul className="space-y-2">
-                <li>• Clean, thoughtful web experiences</li>
-                <li>• Systems that are easy to maintain</li>
-                <li>• AI-assisted workflows to move fast</li>
+                <li>• Clean, thoughtful web experiences designed with purpose</li>
+                <li>• Systems that stay maintainable as they grow</li>
+                <li>• Fast, consistent workflows that deliver on time</li>
+                <li>• Interfaces built for clarity, usability, and long-term reliability</li>
+                <li>• A focus on performance, stability, and attention to detail</li>
               </ul>
             </div>
           </div>
