@@ -2,7 +2,7 @@ export const siteConfig = {
   name: "Jude Bartlett",
   role: "Full-Stack Web Developer",
   tagline:
-    "Building clean, fast web products with Next.js, TypeScript, and AI-assisted workflows.",
+    "Crafting clean, reliable web experiences with just the right amount of chaos behind the scenes.",
   location: "Remote-friendly",
   email: "judebartlettpro@gmail.com",
   socials: {
