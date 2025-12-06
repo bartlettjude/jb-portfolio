@@ -20,9 +20,13 @@ const statusStyles: Record<Project["status"], string> = {
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const href = project.githubUrl || `/projects/${project.slug}`;
+  const external = Boolean(project.githubUrl);
+
   return (
     <Link
-      href={`/projects/${project.slug}`}
+      href={href}
+      {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
       className="group block h-full rounded-xl border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[var(--card)] p-6 shadow-sm transition-all duration-200 ease-out hover:scale-[1.01] hover:-translate-y-0.5 hover:shadow-lg hover:brightness-[1.02] active:scale-[0.98]"
     >
       <div className="mb-4 flex items-center gap-2 text-xs font-medium text-gray-600">
