@@ -50,9 +50,6 @@ export default function ContactPage() {
             )}
           </div>
         </div>
-        <p className="text-sm text-gray-500">
-          Update your email and social links in <code>data/siteConfig.ts</code>.
-        </p>
       </div>
     </PageShell>
   );
