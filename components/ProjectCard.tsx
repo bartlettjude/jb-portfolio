@@ -23,9 +23,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group block h-full rounded-xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm transition-all duration-200 ease-out hover:scale-[1.01] hover:-translate-y-0.5 hover:shadow-lg hover:brightness-[1.02] active:scale-[0.98]"
+      className="group block h-full rounded-xl border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[var(--card)] p-6 shadow-sm transition-all duration-200 ease-out hover:scale-[1.01] hover:-translate-y-0.5 hover:shadow-lg hover:brightness-[1.02] active:scale-[0.98]"
     >
-      <div className="mb-3 flex items-center gap-2 text-xs font-medium text-gray-600">
+      <div className="mb-4 flex items-center gap-2 text-xs font-medium text-gray-600">
         <span
           className={clsx(
             "inline-flex items-center rounded-full px-2.5 py-1",
@@ -43,9 +43,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <h3 className="text-lg font-semibold text-gray-900 group-hover:text-[var(--accent)]">
         {project.name}
       </h3>
-      <p className="mt-2 line-clamp-3 text-sm text-gray-600">{project.shortDescription}</p>
+      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-600">
+        {project.shortDescription}
+      </p>
 
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-5 flex flex-wrap gap-2.5">
         {project.techStack.slice(0, 4).map((tech) => (
           <Tag key={tech} label={tech} variant="muted" />
         ))}
@@ -54,7 +56,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}
       </div>
 
-      <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]">
+      <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]">
         View details
         <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-0.5">
           →

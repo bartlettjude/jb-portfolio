@@ -11,6 +11,7 @@ type SectionProps = {
   children: ReactNode;
   className?: string;
   headingSize?: "sm" | "md" | "lg";
+  eyebrow?: string;
 };
 
 const headingStyles = {
@@ -25,6 +26,7 @@ export function Section({
   children,
   className,
   headingSize = "md",
+  eyebrow,
 }: SectionProps) {
   const { ref, visible } = useFadeInOnScroll();
 
@@ -40,6 +42,11 @@ export function Section({
       <Container>
         {(title || description) && (
           <div className="mb-6 flex flex-col gap-2 sm:mb-8">
+            {eyebrow && (
+              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
+                {eyebrow}
+              </p>
+            )}
             {title && (
               <h2 className={clsx("font-semibold text-gray-900", headingStyles[headingSize])}>
                 {title}
