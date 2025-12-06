@@ -2,7 +2,7 @@ name: Sync Projects
 
 on:
   schedule:
-    - cron: "0 2 * * *"
+    - cron: "0 17 * * *" # 12:00 PM EST (UTC-5)
   workflow_dispatch: {}
 
 jobs:
