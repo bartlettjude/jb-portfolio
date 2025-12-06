@@ -23,7 +23,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       href={`/projects/${project.slug}`}
-      className="group block h-full rounded-xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm transition duration-150 hover:-translate-y-1 hover:shadow-md"
+      className="group block h-full rounded-xl border border-[var(--border)] bg-[var(--card)] p-5 shadow-sm transition-all duration-200 ease-out hover:scale-[1.01] hover:-translate-y-0.5 hover:shadow-lg hover:brightness-[1.02] active:scale-[0.98]"
     >
       <div className="mb-3 flex items-center gap-2 text-xs font-medium text-gray-600">
         <span
@@ -56,7 +56,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]">
         View details
-        <span aria-hidden className="transition-transform duration-150 group-hover:translate-x-0.5">
+        <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-0.5">
           →
         </span>
       </div>

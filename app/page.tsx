@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { siteConfig } from "@/data/siteConfig";
 import { getHighlightedProjects } from "@/data/projects";
 import { Container } from "@/components/Container";
@@ -8,21 +11,52 @@ import { ProjectGrid } from "@/components/ProjectGrid";
 const highlightedProjects = getHighlightedProjects();
 
 export default function Home() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => setLoaded(true));
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   return (
     <div className="space-y-12 sm:space-y-16">
       <div className="bg-[var(--card)]/60">
         <Container className="flex flex-col gap-10 py-12 sm:flex-row sm:items-center sm:gap-16 sm:py-16">
           {/* Update your name, role, and tagline in data/siteConfig.ts */}
           <div className="flex-1 space-y-5">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-gray-500">
+            <p
+              className={`text-sm font-semibold uppercase tracking-[0.18em] text-gray-500 transition-all duration-300 ease-out ${
+                loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+            >
               Portfolio
             </p>
-            <h1 className="text-4xl font-semibold leading-tight text-gray-900 sm:text-5xl">
+            <h1
+              className={`text-4xl font-semibold leading-tight text-gray-900 transition-all duration-300 ease-out sm:text-5xl ${
+                loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+            >
               {siteConfig.name}
             </h1>
-            <p className="text-lg font-medium text-gray-800">{siteConfig.role}</p>
-            <p className="max-w-2xl text-base text-gray-600">{siteConfig.tagline}</p>
-            <div className="flex flex-wrap items-center gap-3">
+            <p
+              className={`text-lg font-medium text-gray-800 transition-all duration-300 ease-out ${
+                loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+            >
+              {siteConfig.role}
+            </p>
+            <p
+              className={`max-w-2xl text-base text-gray-600 transition-all duration-400 ease-out ${
+                loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+              }`}
+            >
+              {siteConfig.tagline}
+            </p>
+            <div
+              className={`flex flex-wrap items-center gap-3 transition-all duration-400 ease-out ${
+                loaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+            >
               <Button href="/projects">View Projects</Button>
               <Button href="/about" variant="ghost">
                 About Me

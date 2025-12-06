@@ -19,7 +19,12 @@ export default function ContactPage() {
           </Button>
           <div className="flex flex-wrap gap-3 text-sm font-semibold text-[var(--accent)]">
             {siteConfig.socials.github && (
-              <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" className="hover:underline">
+              <a
+                href={siteConfig.socials.github}
+                target="_blank"
+                rel="noreferrer"
+                className="link-underline"
+              >
                 GitHub
               </a>
             )}
@@ -28,7 +33,7 @@ export default function ContactPage() {
                 href={siteConfig.socials.linkedin}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:underline"
+                className="link-underline"
               >
                 LinkedIn
               </a>
@@ -38,7 +43,7 @@ export default function ContactPage() {
                 href={siteConfig.socials.portfolio}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:underline"
+                className="link-underline"
               >
                 Portfolio
               </a>

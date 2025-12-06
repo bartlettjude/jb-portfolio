@@ -1,6 +1,9 @@
-import { ReactNode } from "react";
+"use client";
+
+import { ReactNode, RefObject } from "react";
 import { Container } from "./Container";
 import clsx from "clsx";
+import { useFadeInOnScroll } from "@/hooks/useFadeInOnScroll";
 
 type SectionProps = {
   title?: string;
@@ -23,8 +26,17 @@ export function Section({
   className,
   headingSize = "md",
 }: SectionProps) {
+  const { ref, visible } = useFadeInOnScroll();
+
   return (
-    <section className={clsx("py-10 sm:py-14", className)}>
+    <section
+      ref={ref as RefObject<HTMLElement>}
+      className={clsx(
+        "fade-section py-10 sm:py-14",
+        visible && "is-visible",
+        className,
+      )}
+    >
       <Container>
         {(title || description) && (
           <div className="mb-6 flex flex-col gap-2 sm:mb-8">

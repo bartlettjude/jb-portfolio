@@ -94,7 +94,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
 
       <Link
         href="/projects"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)] transition hover:underline"
+        className="link-underline inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]"
       >
         ← Back to all projects
       </Link>

@@ -21,7 +21,10 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--card)]/90 backdrop-blur">
       <Container className="flex h-16 items-center justify-between">
-        <Link href="/" className="text-base font-semibold text-gray-900">
+        <Link
+          href="/"
+          className="text-base font-semibold text-gray-900 transition-colors duration-200 ease-out hover:text-[var(--accent)]"
+        >
           {siteConfig.name}
         </Link>
 
@@ -33,8 +36,8 @@ export function Navbar() {
                 key={item.href}
                 href={item.href}
                 className={clsx(
-                  "transition hover:text-[var(--accent)]",
-                  isActive && "text-[var(--accent)]",
+                  "link-underline transition-colors duration-200 ease-out",
+                  isActive && "link-underline-active",
                 )}
               >
                 {item.label}
@@ -60,7 +63,7 @@ export function Navbar() {
       </Container>
 
       {open && (
-        <div className="border-t border-[var(--border)] bg-[var(--card)] sm:hidden">
+        <div className="mobile-menu-animate border-t border-[var(--border)] bg-[var(--card)] sm:hidden">
           <Container className="flex flex-col gap-2 py-3 text-sm font-medium text-gray-700">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
@@ -69,8 +72,8 @@ export function Navbar() {
                   key={item.href}
                   href={item.href}
                   className={clsx(
-                    "rounded-md px-2 py-2 transition hover:bg-[color-mix(in_srgb,var(--accent)_8%,white)]",
-                    isActive && "text-[var(--accent)]",
+                    "link-underline rounded-md px-2 py-2 transition-colors duration-200 ease-out hover:bg-[color-mix(in_srgb,var(--accent)_8%,white)]",
+                    isActive && "link-underline-active",
                   )}
                   onClick={() => setOpen(false)}
                 >
