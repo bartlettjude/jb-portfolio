@@ -16,7 +16,7 @@ export default function AboutPage() {
   return (
     <PageShell
       title="About"
-      description="Update this content anytime in app/about/page.tsx. Your name, role, and socials come from data/siteConfig.ts."
+      description=""
       animateTitle
     >
       <div className="space-y-6 text-gray-700">
@@ -33,7 +33,7 @@ export default function AboutPage() {
           </p>
           <p className="mt-3">
             Outside of work, I’m a dedicated musician with years of creative experience, and I’m now
-            growing my skills in technology and AI-driven fields. I love building things, learning
+            expanding my skills in technology and web development. I love building things, learning
             quickly, and finding solutions that make experiences better for both teams and customers.
           </p>
         </div>
