@@ -40,6 +40,24 @@ export function InquiryModal({ open, onClose }: InquiryModalProps) {
   const steps = ["Contact", "Project", "Details", "Review"];
   const isLastStep = step === steps.length - 1;
 
+  const validateStep = (currentStep: number, data: ContactFormData): FieldErrors => {
+    const newErrors: FieldErrors = {};
+    if (currentStep === 0) {
+      if (!data.name || data.name.trim().length < 2) {
+        newErrors.name = "Name must be at least 2 characters.";
+      }
+      if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+        newErrors.email = "Enter a valid email.";
+      }
+    }
+    if (currentStep === 1) {
+      if (!data.buildRequest || data.buildRequest.trim().length < 3) {
+        newErrors.buildRequest = "Please describe what you want to build.";
+      }
+    }
+    return newErrors;
+  };
+
   const progress = useMemo(() => ((step + 1) / steps.length) * 100, [step, steps.length]);
 
   const stepErrors = useMemo(() => validateStep(step, formData), [step, formData]);
@@ -60,24 +78,6 @@ export function InquiryModal({ open, onClose }: InquiryModalProps) {
   const closeAndReset = () => {
     reset();
     onClose();
-  };
-
-  const validateStep = (currentStep: number, data: ContactFormData): FieldErrors => {
-    const newErrors: FieldErrors = {};
-    if (currentStep === 0) {
-      if (!data.name || data.name.trim().length < 2) {
-        newErrors.name = "Name must be at least 2 characters.";
-      }
-      if (!data.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
-        newErrors.email = "Enter a valid email.";
-      }
-    }
-    if (currentStep === 1) {
-      if (!data.buildRequest || data.buildRequest.trim().length < 3) {
-        newErrors.buildRequest = "Please describe what you want to build.";
-      }
-    }
-    return newErrors;
   };
 
   const handleNext = () => {
