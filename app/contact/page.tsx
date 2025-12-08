@@ -19,32 +19,27 @@ export default function ContactPage() {
           Email is the fastest way to get in touch. I’m open to web projects, UI polishing, and
           collaborations involving AI-assisted workflows.
         </p>
-        <div className="flex flex-col gap-3">
-          <Button href={`mailto:${siteConfig.email}`} variant="primary">
-            Email {siteConfig.name}
-          </Button>
-          <div className="flex flex-wrap gap-3 text-sm font-semibold text-[var(--accent)]">
-            {siteConfig.socials.github && (
-              <a
-                href={siteConfig.socials.github}
-                target="_blank"
-                rel="noreferrer"
-                className="link-underline"
-              >
-                GitHub
-              </a>
-            )}
-            {siteConfig.socials.linkedin && (
-              <a
-                href={siteConfig.socials.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="link-underline"
-              >
-                LinkedIn
-              </a>
-            )}
-          </div>
+        <div className="flex flex-wrap gap-3 text-sm font-semibold text-[var(--accent)]">
+          {siteConfig.socials.github && (
+            <a
+              href={siteConfig.socials.github}
+              target="_blank"
+              rel="noreferrer"
+              className="link-underline"
+            >
+              GitHub
+            </a>
+          )}
+          {siteConfig.socials.linkedin && (
+            <a
+              href={siteConfig.socials.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="link-underline"
+            >
+              LinkedIn
+            </a>
+          )}
         </div>
 
         <div className="mt-8 rounded-2xl border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[color-mix(in_srgb,#f8fafc_90%,white)] p-5 sm:p-6">
