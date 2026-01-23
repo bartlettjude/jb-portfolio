@@ -5,21 +5,16 @@ import { Tag } from "./Tag";
 
 type ProjectCardProps = {
   project: Project;
-};
-
-const statusCopy: Record<Project["status"], string> = {
-  Planned: "Planned",
-  "In Progress": "In Progress",
-  Completed: "Completed",
+  index?: number;
 };
 
 const statusStyles: Record<Project["status"], string> = {
-  Planned: "bg-amber-50 text-amber-700 border border-amber-100",
-  "In Progress": "bg-blue-50 text-blue-700 border border-blue-100",
-  Completed: "bg-emerald-50 text-emerald-700 border border-emerald-100",
+  Planned: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+  "In Progress": "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  Completed: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
 };
 
-export function ProjectCard({ project }: ProjectCardProps) {
+export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
   const href = project.githubUrl || `/projects/${project.slug}`;
   const external = Boolean(project.githubUrl);
 
@@ -27,31 +22,49 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <Link
       href={href}
       {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
-      className="group block h-full rounded-xl border border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[var(--card)] p-6 shadow-sm transition-all duration-200 ease-out hover:scale-[1.01] hover:-translate-y-0.5 hover:shadow-lg hover:brightness-[1.02] active:scale-[0.98]"
+      className={clsx(
+        "card-animate group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--card)] p-6 transition-all duration-300",
+        "hover:border-[var(--accent)]/50 hover:bg-[var(--muted)]/50",
+        `card-stagger-${Math.min(index + 1, 6)}`
+      )}
+      style={{ opacity: 0 }}
     >
-      <div className="mb-4 flex items-center gap-2 text-xs font-medium text-gray-600">
+      {/* Hover glow effect */}
+      <div 
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        style={{
+          background: "radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255,107,53,0.06), transparent 40%)",
+        }}
+        aria-hidden="true"
+      />
+
+      {/* Status & Type badges */}
+      <div className="mb-5 flex items-center gap-2">
         <span
           className={clsx(
-            "inline-flex items-center rounded-full px-2.5 py-1",
-            statusStyles[project.status],
+            "inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium",
+            statusStyles[project.status]
           )}
         >
-          {statusCopy[project.status]}
+          {project.status}
         </span>
-        <span className="text-gray-400">•</span>
-        <span className="rounded-full bg-gray-100 px-2.5 py-1 text-gray-700">
+        <span className="rounded-full border border-[var(--border)] bg-[var(--muted)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)]">
           {project.type}
         </span>
       </div>
 
-      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-[var(--accent)]">
+      {/* Project name */}
+      <h3 className="mb-3 text-xl font-semibold text-[var(--foreground)] transition-colors duration-200 group-hover:text-[var(--accent)]">
         {project.name}
       </h3>
-      <p className="mt-3 line-clamp-3 text-sm leading-relaxed text-gray-600">
+
+      {/* Description */}
+      <p className="mb-6 flex-1 text-sm leading-relaxed text-[var(--text-secondary)]">
         {project.shortDescription}
       </p>
 
-      <div className="mt-5 flex flex-wrap gap-2.5">
+      {/* Tech stack */}
+      <div className="mb-6 flex flex-wrap gap-2">
         {project.techStack.slice(0, 4).map((tech) => (
           <Tag key={tech} label={tech} variant="muted" />
         ))}
@@ -60,13 +73,19 @@ export function ProjectCard({ project }: ProjectCardProps) {
         )}
       </div>
 
-      <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent)]">
-        View details
-        <span aria-hidden className="transition-transform duration-200 ease-out group-hover:translate-x-0.5">
-          →
-        </span>
+      {/* View link */}
+      <div className="flex items-center gap-2 text-sm font-semibold text-[var(--accent)]">
+        <span>View project</span>
+        <svg 
+          className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-1" 
+          fill="none" 
+          viewBox="0 0 24 24" 
+          stroke="currentColor" 
+          strokeWidth={2}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
       </div>
     </Link>
   );
 }
-

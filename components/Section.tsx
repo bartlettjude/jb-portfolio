@@ -15,9 +15,9 @@ type SectionProps = {
 };
 
 const headingStyles = {
-  sm: "text-xl sm:text-2xl",
-  md: "text-2xl sm:text-3xl",
-  lg: "text-3xl sm:text-4xl",
+  sm: "text-2xl sm:text-3xl",
+  md: "text-3xl sm:text-4xl",
+  lg: "text-4xl sm:text-5xl",
 };
 
 export function Section({
@@ -34,26 +34,33 @@ export function Section({
     <section
       ref={ref as RefObject<HTMLElement>}
       className={clsx(
-        "fade-section py-10 sm:py-14",
+        "fade-section py-16 sm:py-24",
         visible && "is-visible",
-        className,
+        className
       )}
     >
       <Container>
         {(title || description) && (
-          <div className="mb-6 flex flex-col gap-2 sm:mb-8">
+          <div className="mb-10 flex flex-col gap-4 sm:mb-14">
             {eyebrow && (
-              <p className="text-xs font-semibold uppercase tracking-[0.24em] text-gray-500">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-[var(--accent)]">
                 {eyebrow}
               </p>
             )}
             {title && (
-              <h2 className={clsx("font-semibold text-gray-900", headingStyles[headingSize])}>
+              <h2
+                className={clsx(
+                  "font-display font-semibold leading-tight text-[var(--foreground)]",
+                  headingStyles[headingSize]
+                )}
+              >
                 {title}
               </h2>
             )}
             {description && (
-              <p className="max-w-3xl text-base text-gray-600">{description}</p>
+              <p className="max-w-2xl text-base leading-relaxed text-[var(--text-secondary)]">
+                {description}
+              </p>
             )}
           </div>
         )}
@@ -62,4 +69,3 @@ export function Section({
     </section>
   );
 }
-

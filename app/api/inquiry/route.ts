@@ -1,71 +1,74 @@
 import { NextResponse } from "next/server";
-import type { ContactFormData } from "@/components/inquiry/InquiryModal";
+import { Resend } from "resend";
 
-function validate(payload: Partial<ContactFormData>) {
-  const errors: Record<string, string> = {};
-  if (!payload.name || payload.name.trim().length < 2) {
-    errors.name = "Name must be at least 2 characters.";
-  }
-  if (!payload.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email)) {
-    errors.email = "Enter a valid email.";
-  }
-  if (!payload.buildRequest || payload.buildRequest.trim().length < 3) {
-    errors.buildRequest = "Please describe what you want to build.";
-  }
-  return errors;
+type InquiryPayload = {
+  name?: string;
+  email?: string;
+  phone?: string;
+  company?: string;
+  buildRequest?: string;
+  details?: string;
+};
+
+function isEmailValid(email: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+function validate(payload: InquiryPayload) {
+  if (!payload.name || payload.name.trim().length < 2) return false;
+  if (!payload.email || !isEmailValid(payload.email)) return false;
+  if (!payload.buildRequest || payload.buildRequest.trim().length < 1) return false;
+  return true;
 }
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as Partial<ContactFormData>;
-    const errors = validate(body);
-    if (Object.keys(errors).length > 0) {
-      return NextResponse.json({ success: false, errors }, { status: 400 });
+    const body = (await request.json()) as InquiryPayload;
+
+    if (!validate(body)) {
+      return NextResponse.json(
+        { success: false, error: "Missing or invalid fields." },
+        { status: 400 },
+      );
     }
 
-    const apiKey = process.env.RESEND_API_KEY;
-    if (!apiKey) {
+    const resendApiKey = process.env.RESEND_API_KEY;
+    const toEmail = process.env.INQUIRY_RECEIVER_EMAIL;
+
+    if (!resendApiKey || !toEmail) {
       return NextResponse.json(
-        { success: false, message: "Email service not configured." },
+        { success: false, error: "Email service not configured." },
         { status: 500 },
       );
     }
 
-    const toEmail = "judebartlettpro@gmail.com";
-    const fromEmail = process.env.INQUIRY_FROM || "inquiries@resend.dev";
+    const resend = new Resend(resendApiKey);
 
-    const subject = `New Inquiry From ${body.name}`;
-    const text = [
-      `Name: ${body.name}`,
-      `Email: ${body.email}`,
-      `Phone: ${body.phone || "Not provided"}`,
-      `Company: ${body.company || "Not provided"}`,
-      "",
-      "What they want to build:",
-      body.buildRequest,
-      "",
-      "Additional details:",
-      body.details || "Not provided",
-    ].join("\n");
+    const { name, email, phone, company, buildRequest, details } = body;
 
-    const emailRes = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: fromEmail,
-        to: toEmail,
-        subject,
-        text,
-      }),
+    const subject = `New Inquiry From ${name}`;
+    const html = `
+      <h2>New Inquiry Submitted</h2>
+      <p><strong>Name:</strong> ${name}</p>
+      <p><strong>Email:</strong> ${email}</p>
+      <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+      <p><strong>Company:</strong> ${company || "Not provided"}</p>
+      <p><strong>What they want to build:</strong></p>
+      <p>${buildRequest}</p>
+      <p><strong>Additional details:</strong></p>
+      <p>${details || "None provided"}</p>
+    `;
+
+    const { error } = await resend.emails.send({
+      from: "inquiries@resend.dev",
+      to: toEmail,
+      subject,
+      html,
     });
 
-    if (!emailRes.ok) {
-      const errText = await emailRes.text();
+    if (error) {
       return NextResponse.json(
-        { success: false, message: "Failed to send email", detail: errText },
+        { success: false, error: "Email failed to send." },
         { status: 500 },
       );
     }
@@ -73,10 +76,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unexpected error";
-    return NextResponse.json(
-      { success: false, message },
-      { status: 500 },
-    );
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
 

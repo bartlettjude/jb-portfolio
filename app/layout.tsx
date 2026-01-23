@@ -1,18 +1,20 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 import { siteConfig } from "@/data/siteConfig";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,11 +28,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <div className="flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
+    <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
+      <body className="antialiased">
+        {/* Noise texture overlay for depth */}
+        <div className="noise-overlay" aria-hidden="true" />
+        
+        <div className="relative flex min-h-screen flex-col bg-[var(--background)] text-[var(--foreground)]">
+          {/* Gradient glow at top */}
+          <div 
+            className="pointer-events-none fixed inset-x-0 top-0 h-[600px] gradient-radial-top opacity-60" 
+            aria-hidden="true" 
+          />
+          
           <Navbar />
-          <div className="flex-1">{children}</div>
+          <main className="relative flex-1">{children}</main>
           <Footer />
         </div>
       </body>

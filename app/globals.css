@@ -1,12 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f5f5f7;
-  --foreground: #111827;
-  --accent: #14b8a6;
-  --muted: #e5e7eb;
-  --card: #ffffff;
-  --border: #e5e7eb;
+  --background: #0a0a0c;
+  --foreground: #f5f5f1;
+  --accent: #ff6b35;
+  --accent-glow: #ff6b3540;
+  --muted: #1a1a1e;
+  --card: #111114;
+  --border: #2a2a2f;
+  --text-secondary: #8a8a8f;
 }
 
 @theme inline {
@@ -16,53 +18,84 @@
   --color-muted: var(--muted);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular,
-    "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: var(--background);
+}
+
+/* Links */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-a:hover {
-  color: var(--accent);
+/* ============================================
+   TYPOGRAPHY UTILITIES
+   ============================================ */
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
 }
 
-::selection {
-  background: color-mix(in srgb, var(--accent) 20%, transparent);
+.text-gradient {
+  background: linear-gradient(135deg, var(--foreground) 0%, var(--text-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Link underline animation */
+.text-accent-gradient {
+  background: linear-gradient(135deg, var(--accent) 0%, #ff8f65 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================
+   LINK ANIMATIONS
+   ============================================ */
+
 .link-underline {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  transition: color 200ms ease-out;
+  transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-underline::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -2px;
-  height: 1px;
+  bottom: -4px;
+  height: 2px;
   width: 100%;
   background: var(--accent);
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 200ms ease-out;
+  transform-origin: right;
+  transition: transform 350ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .link-underline:hover,
@@ -75,37 +108,127 @@ a:hover {
 .link-underline:focus-visible::after,
 .link-underline-active::after {
   transform: scaleX(1);
+  transform-origin: left;
 }
 
-/* Heading underline animation */
+/* ============================================
+   ANIMATED HEADING UNDERLINE
+   ============================================ */
+
 .heading-underline {
   position: relative;
   display: inline-block;
-  overflow: hidden;
 }
 
 .heading-underline::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -6px;
+  bottom: -8px;
   width: 100%;
-  height: 2px;
-  background: var(--accent);
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent) 0%, transparent 100%);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 250ms ease-out;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .heading-underline.is-visible::after {
   transform: scaleX(1);
 }
 
-/* Mobile menu */
-@keyframes fadeSlideDown {
+/* ============================================
+   WAVEFORM ANIMATION (Hero)
+   ============================================ */
+
+@keyframes waveform-pulse {
+  0%, 100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.waveform-bar {
+  animation: waveform-pulse 1.2s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+.waveform-bar:nth-child(1) { animation-delay: 0ms; }
+.waveform-bar:nth-child(2) { animation-delay: 100ms; }
+.waveform-bar:nth-child(3) { animation-delay: 200ms; }
+.waveform-bar:nth-child(4) { animation-delay: 300ms; }
+.waveform-bar:nth-child(5) { animation-delay: 400ms; }
+.waveform-bar:nth-child(6) { animation-delay: 500ms; }
+.waveform-bar:nth-child(7) { animation-delay: 400ms; }
+.waveform-bar:nth-child(8) { animation-delay: 300ms; }
+.waveform-bar:nth-child(9) { animation-delay: 200ms; }
+.waveform-bar:nth-child(10) { animation-delay: 100ms; }
+.waveform-bar:nth-child(11) { animation-delay: 0ms; }
+.waveform-bar:nth-child(12) { animation-delay: 100ms; }
+
+/* ============================================
+   GLOW EFFECTS
+   ============================================ */
+
+.glow-accent {
+  box-shadow: 0 0 40px var(--accent-glow), 0 0 80px var(--accent-glow);
+}
+
+.glow-text {
+  text-shadow: 0 0 40px var(--accent-glow);
+}
+
+/* ============================================
+   CARD & SECTION ANIMATIONS
+   ============================================ */
+
+@keyframes cardFadeIn {
   from {
     opacity: 0;
-    transform: translateY(-4px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-animate {
+  animation: cardFadeIn 600ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Staggered card delays */
+.card-stagger-1 { animation-delay: 0ms; }
+.card-stagger-2 { animation-delay: 100ms; }
+.card-stagger-3 { animation-delay: 200ms; }
+.card-stagger-4 { animation-delay: 300ms; }
+.card-stagger-5 { animation-delay: 400ms; }
+.card-stagger-6 { animation-delay: 500ms; }
+
+/* Section reveal - curtain effect */
+.fade-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 
+    opacity 700ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fade-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   MOBILE MENU
+   ============================================ */
+
+@keyframes menuSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
   to {
     opacity: 1;
@@ -114,14 +237,22 @@ a:hover {
 }
 
 .mobile-menu-animate {
-  animation: fadeSlideDown 200ms ease-out;
+  animation: menuSlideDown 300ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Card + section animations */
-@keyframes cardFadeIn {
+/* ============================================
+   MODAL BACKDROP
+   ============================================ */
+
+@keyframes backdropFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSlideUp {
   from {
     opacity: 0;
-    transform: translateY(6px) scale(0.98);
+    transform: translateY(30px) scale(0.95);
   }
   to {
     opacity: 1;
@@ -129,32 +260,168 @@ a:hover {
   }
 }
 
-.card-animate {
-  animation: cardFadeIn 220ms ease-out forwards;
+.modal-backdrop {
+  animation: backdropFadeIn 300ms ease-out;
 }
 
-.fade-section {
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 320ms ease-out, transform 320ms ease-out;
+.modal-content {
+  animation: modalSlideUp 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.fade-section.is-visible {
-  opacity: 1;
+/* ============================================
+   BUTTON HOVER EFFECTS
+   ============================================ */
+
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+  transform: translateX(-100%);
+  transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover::before {
+  transform: translateX(100%);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 40px var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+.btn-primary:active {
   transform: translateY(0);
 }
 
+/* Ghost button */
+.btn-ghost {
+  position: relative;
+  transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255, 107, 53, 0.05);
+}
+
+/* ============================================
+   NOISE TEXTURE OVERLAY
+   ============================================ */
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ============================================
+   GRID PATTERN BACKGROUND
+   ============================================ */
+
+.grid-pattern {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ============================================
+   GRADIENT BACKGROUNDS
+   ============================================ */
+
+.gradient-radial-top {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent);
+}
+
+.gradient-radial-accent {
+  background: radial-gradient(circle at 50% 50%, var(--accent-glow), transparent 70%);
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
 @media (prefers-reduced-motion: reduce) {
   .card-animate,
-  .mobile-menu-animate {
+  .mobile-menu-animate,
+  .modal-backdrop,
+  .modal-content {
     animation: none !important;
   }
+  
   .fade-section {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
+  
+  .waveform-bar {
+    animation: none !important;
+    transform: scaleY(0.6) !important;
+  }
+  
+  .btn-primary::before {
+    display: none;
+  }
+  
   * {
     scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* ============================================
+   FOCUS STYLES
+   ============================================ */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   INPUT STYLES (for modal)
+   ============================================ */
+
+input, textarea {
+  font-family: inherit;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.6;
 }

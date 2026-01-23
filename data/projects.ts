@@ -44,22 +44,6 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "verbal-vandal",
-    name: "Verbal Vandal",
-    shortDescription:
-      "A playful AI sidekick that crafts clever, over-the-top roasts on demand.",
-    fullDescription:
-      "Built an AI-powered web tool that delivers witty, cheeky insults on request. Emphasizes fast UX with responsive UI states, copy-to-clipboard for punchlines, and guardrails to keep things light-hearted.",
-    techStack: ["Next.js", "TypeScript", "Tailwind CSS", "OpenAI API"],
-    status: "Completed",
-    type: "Web App",
-    role: "Solo Developer",
-    githubUrl: "https://github.com/bartlettjude/Verbal-Vandal",
-    createdAt: "2024-09-15",
-    updatedAt: "2024-10-01",
-    highlighted: true,
-  },
-  {
     slug: "track-tempo",
     name: "Track Tempo",
     shortDescription:

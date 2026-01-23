@@ -2,18 +2,24 @@ import clsx from "clsx";
 
 type TagProps = {
   label: string;
-  variant?: "accent" | "muted";
-  className?: string;
+  variant?: "default" | "muted" | "accent";
 };
 
-export function Tag({ label, variant = "muted", className }: TagProps) {
-  const base =
-    "inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition-all duration-200 ease-out hover:scale-[1.03] hover:shadow-sm";
-  const styles =
-    variant === "accent"
-      ? "bg-[color-mix(in_srgb,var(--accent)_12%,white)] text-[var(--accent)]"
-      : "bg-[var(--muted)] text-gray-700 hover:bg-[color-mix(in_srgb,var(--accent)_8%,#e5e7eb)]";
+export function Tag({ label, variant = "default" }: TagProps) {
+  const variants = {
+    default: "bg-[var(--muted)] text-[var(--foreground)] border-[var(--border)]",
+    muted: "bg-[var(--muted)]/50 text-[var(--text-secondary)] border-[var(--border)]/50",
+    accent: "bg-[var(--accent)]/10 text-[var(--accent)] border-[var(--accent)]/30",
+  };
 
-  return <span className={clsx(base, styles, className)}>{label}</span>;
+  return (
+    <span
+      className={clsx(
+        "inline-flex items-center rounded-md border px-2.5 py-1 text-xs font-medium transition-colors duration-200",
+        variants[variant]
+      )}
+    >
+      {label}
+    </span>
+  );
 }
-

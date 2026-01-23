@@ -10,25 +10,40 @@ export default function ProjectsPage() {
   return (
     <PageShell
       title="Projects"
-      description="All projects are powered by data/projects.ts. Add or edit entries there to keep this page up to date."
+      eyebrow="My Work"
+      description="A collection of projects I've built—from experiments to polished products. Each one taught me something new."
+      animateTitle
     >
-      <div className="space-y-10">
+      <div className="space-y-16">
         {statusOrder.map((status) => {
           const group = projects.filter((project) => project.status === status);
           if (!group.length) return null;
 
           return (
-            <section key={status} className="space-y-4">
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-semibold text-gray-900">{status}</h2>
-                <span className="text-sm text-gray-500">({group.length})</span>
+            <section key={status} className="space-y-8">
+              <div className="flex items-center gap-4">
+                <h2 className="font-display text-2xl font-semibold text-[var(--foreground)]">
+                  {status}
+                </h2>
+                <span className="rounded-full border border-[var(--border)] bg-[var(--muted)] px-3 py-1 text-sm text-[var(--text-secondary)]">
+                  {group.length}
+                </span>
               </div>
               <ProjectGrid projects={group} />
             </section>
           );
         })}
+
+        {projects.length === 0 && (
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-12 text-center">
+            <p className="text-[var(--text-secondary)]">
+              No projects yet. Add entries to{" "}
+              <code className="rounded bg-[var(--muted)] px-2 py-1 text-xs">data/projects.ts</code>{" "}
+              to populate this page.
+            </p>
+          </div>
+        )}
       </div>
     </PageShell>
   );
 }
-
