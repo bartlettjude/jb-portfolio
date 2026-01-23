@@ -18,7 +18,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
           GITHUB_LOGIN: bartlettjude
-      - run: npm run lint
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
         with:
