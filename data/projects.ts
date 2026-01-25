@@ -63,16 +63,16 @@ export const projects: Project[] = [
     highlighted: true
   },
   {
-    slug: "musictrainapp",
-    name: "musictrainapp",
+    slug: "music-train",
+    name: "Music-Train",
     shortDescription: "Music Train is a retro-styled audio workstation for musicians and producers. Load any audio file or record directly, and instantly detect the key, BPM, and chord progression. Shift pitch up to ±12 semitones, time-stretch without affecting pitch, and apply effects like EQ, reverb, and lo-fi processing. Features real-time spectrum analysis, LUFS loud",
     fullDescription: "Music Train is a retro-styled audio workstation for musicians and producers. Load any audio file or record directly, and instantly detect the key, BPM, and chord progression. Shift pitch up to ±12 semitones, time-stretch without affecting pitch, and apply effects like EQ, reverb, and lo-fi processing. Features real-time spectrum analysis, LUFS loud",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
     status: "Completed",
     type: "Web App",
     role: "Solo Developer",
-    githubUrl: "https://github.com/bartlettjude/musictrainapp",
-    demoUrl: "https://github.com/bartlettjude/musictrainapp",
+    githubUrl: "https://github.com/bartlettjude/Music-Train",
+    demoUrl: "https://github.com/bartlettjude/Music-Train",
     createdAt: "2026-01-23T03:36:20Z",
     updatedAt: "2026-01-23T23:16:15Z",
     highlighted: true
