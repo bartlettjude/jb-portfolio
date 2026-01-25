@@ -59,14 +59,14 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/bartlettjude/Verbal-Vandal",
     demoUrl: "https://verbal-vandal.vercel.app",
     createdAt: "2025-10-30T22:13:54Z",
-    updatedAt: "2025-10-30T22:30:17Z",
+    updatedAt: "2026-01-24T18:01:38Z",
     highlighted: true
   },
   {
     slug: "musictrainapp",
     name: "musictrainapp",
-    shortDescription: "yo mama cuh",
-    fullDescription: "yo mama cuh",
+    shortDescription: "Music Train is a retro-styled audio workstation for musicians and producers. Load any audio file or record directly, and instantly detect the key, BPM, and chord progression. Shift pitch up to ±12 semitones, time-stretch without affecting pitch, and apply effects like EQ, reverb, and lo-fi processing. Features real-time spectrum analysis, LUFS loud",
+    fullDescription: "Music Train is a retro-styled audio workstation for musicians and producers. Load any audio file or record directly, and instantly detect the key, BPM, and chord progression. Shift pitch up to ±12 semitones, time-stretch without affecting pitch, and apply effects like EQ, reverb, and lo-fi processing. Features real-time spectrum analysis, LUFS loud",
     techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
     status: "Completed",
     type: "Web App",
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/bartlettjude/musictrainapp",
     demoUrl: "https://github.com/bartlettjude/musictrainapp",
     createdAt: "2026-01-23T03:36:20Z",
-    updatedAt: "2026-01-23T03:42:53Z",
+    updatedAt: "2026-01-23T23:16:15Z",
     highlighted: true
   }
 ];
